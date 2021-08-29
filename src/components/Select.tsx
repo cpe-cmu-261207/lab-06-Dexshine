@@ -1,7 +1,5 @@
-import { Switch, Route, useHistory} from "react-router-dom"
+import { useHistory} from "react-router-dom"
 import { useState } from "react"
-import Result from "./Result"
-
 
 const Select = () => {
     
@@ -22,21 +20,21 @@ const Select = () => {
             const startDay = parseInt(start[2])
             const endDay = parseInt(end[2])
 
+            //check if start date < end date 
+            //if not, send alert text
             if(startYear > endYear) alert(alertText)
             else{
                 if(startMonth > endMonth) alert(alertText)
                 else{
                     if(startDay > endDay) alert(alertText)
-                    else history.push(`/history/result?start=` + startDate + `&end=` + endDate)
+                    //change address bar
+                    else history.push(`/history/result?start=${startDate}&end=${endDate}`)
                 }
             }
         }
-        console.log(history)
     }
     return (
-        <Switch>
-            <Route path='/'>
-            <div className='text-center space-y-3 space-x-3'>
+        <div className='text-center space-y-3 space-x-3'>
             <p className='text-2xl font-semibold'>Select historical range</p>
             <span>From date</span>
             <input type='date' onChange={e => setStart(e.target.value)}></input>
@@ -44,12 +42,7 @@ const Select = () => {
             <input type='date' onChange={e => setEnd(e.target.value)}></input>
             <br />
             <button onClick={() => submitDate()}>Get data</button>
-            </div>
-            </Route>
-            <Route path='/history/result'>
-                <Result/>
-            </Route>
-        </Switch>
+        </div>
     )
 }
 export default Select
